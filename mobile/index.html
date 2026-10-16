@@ -108,7 +108,7 @@ a { color: var(--accent); }
 
 <script type="module">
 import { ESPLoader, Transport } from './esptool-js/esptool.js';
-import { Ch340Port, CH34X_FILTERS } from './ch340-webusb.js';
+import { Ch340Port, CH34X_FILTERS } from './ch340-webusb.js?v=4';
 
 const $ = (id) => document.getElementById(id);
 const logEl = $('log');
@@ -154,7 +154,28 @@ $('go').addEventListener('click', async () => {
     port.onLog = log;
     transport = new Transport(port, false);
     const terminal = { clean() {}, writeLine: log, write: (t) => log(t) };
-    const loader = new ESPLoader({ transport, baudrate: baud, romBaudrate: 115200, terminal, debugLogging: true });
+    // Both lines change in ONE USB request: esptool-js sets DTR and RTS one after the
+    // other, and over a phone's USB the gap (both asserted = EN released with IO0 high)
+    // was long enough for the chip to boot its program instead of the download mode.
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    const classicReset = (t, delay) => ({
+      reset: async () => {
+        await port.setSignals({ dataTerminalReady: false, requestToSend: true }); // EN low
+        await sleep(100);
+        await port.setSignals({ dataTerminalReady: true, requestToSend: false }); // EN high, IO0 low
+        await sleep(delay);
+        await port.setSignals({ dataTerminalReady: false, requestToSend: false }); // IO0 released
+      },
+    });
+    const hardReset = () => ({
+      reset: async () => {
+        await port.setSignals({ dataTerminalReady: false, requestToSend: true });
+        await sleep(100);
+        await port.setSignals({ dataTerminalReady: false, requestToSend: false });
+      },
+    });
+    const loader = new ESPLoader({ transport, baudrate: baud, romBaudrate: 115200, terminal, debugLogging: true,
+                                   resetConstructors: { classicReset, hardReset } });
     const chip = await loader.main();
     log('chip: ' + chip);
     if (loader.chip.CHIP_NAME !== 'ESP32') throw new Error('ไม่ใช่บอร์ด ESP32 รุ่นที่รองรับ: ' + chip);
