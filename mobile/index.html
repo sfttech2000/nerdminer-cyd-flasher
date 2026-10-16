@@ -181,6 +181,12 @@ $('go').addEventListener('click', async () => {
   }
 });
 
+// boot text with unprintable bytes as dots (line breaks kept)
+const printable = (t) => Array.from(t, (c) => {
+  const n = c.charCodeAt(0);
+  return n === 10 || n === 13 || (n >= 32 && n < 127) ? c : '.';
+}).join('');
+
 // Connection check: restart the board normally (EN pulse via RTS) and show what it prints.
 // The boot text (ets Jul 29 2019 ... boot:0x13) proves reading works; then a pulse with
 // IO0 held low (DTR) should print boot:0x3 ... waiting for download.
@@ -209,17 +215,15 @@ $('probe').addEventListener('click', async () => {
     status('ทดสอบ 1: เริ่มบอร์ดใหม่แบบปกติ...');
     await pulse(false);
     await wait(500);
-    log('--- normal boot (' + text.length + ' chars) ---
-' + text.slice(0, 600).replace(/[^	
- -~]/g, '.'));
+    log('--- normal boot (' + text.length + ' chars) ---');
+    log(printable(text.slice(0, 600)));
     const normalOk = /boot:0x/.test(text);
     text = '';
     status('ทดสอบ 2: เข้าโหมดแฟลช...');
     await pulse(true);
     await wait(300);
-    log('--- download mode (' + text.length + ' chars) ---
-' + text.slice(0, 400).replace(/[^	
- -~]/g, '.'));
+    log('--- download mode (' + text.length + ' chars) ---');
+    log(printable(text.slice(0, 400)));
     const dlOk = /waiting for download/.test(text);
     await reader.cancel().catch(() => {});
     log(`usb rx ${port.rxBytes} B`);
