@@ -27,6 +27,13 @@ export class Ch340Port {
     this.dtr = false;
     this.rts = false;
     this.opened = false;
+    this.rxBytes = 0;
+    this.txBytes = 0;
+    this.onLog = null; // (text) => void, for the page's log
+  }
+
+  log(t) {
+    if (this.onLog) this.onLog(t);
   }
 
   getInfo() {
@@ -62,6 +69,7 @@ export class Ch340Port {
   async writeModem() {
     const bits = (this.dtr ? BIT_DTR : 0) | (this.rts ? BIT_RTS : 0);
     await this.ctrlOut(REQ_MODEM_CTRL, ~bits & 0xffff, 0); // active low
+    this.log(`  [usb] DTR=${this.dtr ? 1 : 0} RTS=${this.rts ? 1 : 0}`);
   }
 
   async open({ baudRate = 115200 } = {}) {
@@ -76,7 +84,8 @@ export class Ch340Port {
     this.epOut = eps.find((e) => e.direction === 'out').endpointNumber;
     this.packetIn = eps.find((e) => e.direction === 'in').packetSize || 32;
 
-    await this.ctrlIn(REQ_READ_VERSION, 0, 0, 8);
+    const ver = await this.ctrlIn(REQ_READ_VERSION, 0, 0, 8);
+    this.log(`  [usb] CH34x version 0x${ver.getUint8(0).toString(16)}, endpoints in ${this.epIn} out ${this.epOut}, ${baudRate} baud`);
     await this.ctrlOut(REQ_SERIAL_INIT, 0, 0);
     await this.setBaud(baudRate);
     await this.ctrlOut(REQ_WRITE_REG, 0x2518, LCR_8N1);
@@ -96,6 +105,7 @@ export class Ch340Port {
             return;
           }
           if (r.data && r.data.byteLength) {
+            port.rxBytes += r.data.byteLength;
             controller.enqueue(new Uint8Array(r.data.buffer, r.data.byteOffset, r.data.byteLength));
             return;
           }
@@ -108,6 +118,7 @@ export class Ch340Port {
     });
     this.writable = new WritableStream({
       async write(chunk) {
+        port.txBytes += chunk.byteLength;
         const r = await d.transferOut(port.epOut, chunk);
         if (r.status !== 'ok') throw new Error('USB write: ' + r.status);
       },
