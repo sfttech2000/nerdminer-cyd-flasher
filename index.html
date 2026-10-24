@@ -110,7 +110,7 @@ p, li, #status, pre#log { overflow-wrap: anywhere; }
     <p>ต่อ WiFi บนจอบอร์ดให้สำเร็จ เครื่องจะขึ้น “เครื่องนี้ยังไม่ได้ปลดล็อก” พร้อมรหัสเครื่อง ส่งรหัสเครื่องให้ผู้ขาย แล้ววางรหัสปลดล็อกที่ได้ในหน้าตั้งค่าของเครื่อง</p>
   </section>
 
-  <p class="muted" style="font-size:13px">ใช้ esptool-js (Apache-2.0) ของ Espressif ดู <a href="mobile/esptool-js/LICENSE">LICENSE</a> · ไลเซนส์ซอฟต์แวร์ในเฟิร์มแวร์ดูได้ที่ http://&lt;IP ของเครื่อง&gt;/licenses</p>
+  <p class="muted" style="font-size:13px">หน้านี้นับแค่จำนวนครั้งที่ติดตั้งสำเร็จ (+1) ไม่เก็บข้อมูลใดๆ ของคุณ · ใช้ esptool-js (Apache-2.0) ของ Espressif ดู <a href="mobile/esptool-js/LICENSE">LICENSE</a> · ไลเซนส์ซอฟต์แวร์ในเฟิร์มแวร์ดูได้ที่ http://&lt;IP ของเครื่อง&gt;/licenses</p>
 </main>
 
 <script type="module">
@@ -223,6 +223,7 @@ $('go').addEventListener('click', async () => {
     status('กำลังเริ่มเครื่องใหม่...');
     await loader.after('hard_reset');
     status('ติดตั้งเสร็จแล้ว ถอดสายได้เลย บอร์ดจะเริ่มทำงานเอง', 'ok');
+    fetch('https://abacus.jasoncameron.dev/hit/nerdminer-cyd-flasher/installs').catch(() => {});   // +1 install, nothing about you
   } catch (e) {
     console.error(e);
     log('ERROR: ' + (e && e.message ? e.message : e));
