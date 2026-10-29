@@ -55,6 +55,11 @@ td:first-child { white-space: nowrap; font-weight: 500; }
 code { font-family: Consolas, monospace; font-size: 15px; background: var(--tip-bg); padding: 0 5px; border-radius: 5px; overflow-wrap: anywhere; }
 p, li, td { overflow-wrap: anywhere; }
 footer { font-size: 13px; color: var(--muted); }
+.contact { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; align-items: center; }
+.contact img { width: 150px; height: 150px; border-radius: 10px; border: 1px solid var(--line); background: #fff; display: block; }
+.line-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 20px; border-radius: 10px; background: #06C755; color: #fff; font-weight: 600; text-decoration: none; }
+@media (max-width: 420px) { .contact { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; } }
+
 </style>
 </head>
 <body>
@@ -77,6 +82,7 @@ footer { font-size: 13px; color: var(--muted); }
       <li><a href="#s8">หน้าเว็บตั้งค่า</a></li>
       <li><a href="#s9">แก้ปัญหาที่พบบ่อย</a></li>
       <li><a href="#s10">เรื่องควรรู้และไลเซนส์</a></li>
+      <li><a href="#contact">ติดต่อผู้พัฒนา (LINE)</a></li>
     </ol>
   </nav>
 
@@ -158,11 +164,15 @@ footer { font-size: 13px; color: var(--muted); }
     <h2><b>4</b> ปลดล็อกเครื่อง</h2>
     <p>เครื่องที่แฟลชเองจะขึ้นหน้า “เครื่องนี้ยังไม่ได้ปลดล็อก” พร้อมรหัสเครื่องหลังต่อ WiFi</p>
     <ol>
-      <li>ส่ง “รหัสเครื่อง” บนจอให้ผู้ขาย</li>
-      <li>ผู้ขายส่ง “รหัสปลดล็อก” กลับมา (ตัวอักษร 86 ตัว)</li>
+      <li>ส่ง “รหัสเครื่อง” บนจอให้ผู้พัฒนาทาง LINE: แตะแถบเขียวด้านล่างจอ เครื่องจะขึ้น QR LINE ให้สแกนด้วยมือถือ (แตะจออีกครั้งเพื่อกลับ) หรือแอดจาก<a href="#contact">ปุ่มด้านล่าง</a></li>
+      <li>ผู้พัฒนาส่ง “รหัสปลดล็อก” กลับมา (ตัวอักษร 86 ตัว)</li>
       <li>เปิด <code>http://&lt;IP ที่ขึ้นบนจอ&gt;/</code> วางรหัสในช่อง “รหัสปลดล็อก” แล้วกด ปลดล็อก</li>
     </ol>
-    <p class="muted">ปลดล็อกครั้งเดียว อัปเดตเฟิร์มแวร์ภายหลังก็ยังปลดล็อกอยู่ ต้องปลดใหม่เฉพาะหลังล้างเครื่องทั้งหมด (ใช้รหัสเดิมได้)</p>
+    <p class="muted">ปลดล็อกครั้งเดียว อัปเดตเฟิร์มแวร์ภายหลังก็ยังปลดล็อกอยู่ ต้องปลดใหม่เฉพาะหลังล้างเครื่องทั้งหมด (ใช้รหัสเดิมได้) หน้าเว็บตั้งค่าของเครื่องที่ยังไม่ปลดล็อกก็มีปุ่ม “แอด LINE ผู้พัฒนา”</p>
+    <div class="shots">
+      <figure class="screen"><img src="img/15_lock.png" alt="หน้าเครื่องนี้ยังไม่ได้ปลดล็อก พร้อมรหัสเครื่องและแถบเขียว LINE" width="640" height="480" loading="lazy"><figcaption>หน้าล็อก: รหัสเครื่อง ที่อยู่หน้าตั้งค่า และแถบเขียว LINE</figcaption></figure>
+      <figure class="screen"><img src="img/16_line.png" alt="QR LINE ผู้พัฒนาบนจอเครื่อง" width="640" height="480" loading="lazy"><figcaption>แตะแถบเขียว: QR LINE ผู้พัฒนา</figcaption></figure>
+    </div>
   </section>
 
   <section class="card" id="s5">
@@ -271,6 +281,17 @@ footer { font-size: 13px; color: var(--muted); }
       <li>ข้อมูลในหน้าต่างๆ มาจากแหล่งข้อมูลสาธารณะ ใช้ประกอบการตัดสินใจเท่านั้น</li>
       <li>ซอฟต์แวร์พัฒนาต่อจากโครงการ NerdMiner v2 (ไลเซนส์ MIT) รายชื่อซอฟต์แวร์โอเพนซอร์สและไลเซนส์ทั้งหมดดูได้ที่ <code>http://&lt;IP&gt;/licenses</code></li>
     </ul>
+  </section>
+
+  <section class="card" id="contact">
+    <h2>ติดต่อผู้พัฒนา</h2>
+    <div class="contact">
+      <img src="img/line-qr.png" alt="QR code LINE ผู้พัฒนา sfttech2000" width="150" height="150" loading="lazy">
+      <div style="display:grid;gap:10px">
+        <p>ขอรหัสปลดล็อก แจ้งปัญหา หรือสอบถาม ทาง LINE <b>sfttech2000</b> ขอรหัสปลดล็อกให้ส่ง<b>รหัสเครื่อง</b>ที่ขึ้นบนจอมาด้วย</p>
+        <p><a class="line-btn" href="https://lin.ee/SjUh1ct" target="_blank" rel="noopener">แอด LINE ผู้พัฒนา</a></p>
+      </div>
+    </div>
   </section>
 
   <footer>คู่มือ NerdMiner CYD รุ่นไลท์ · เฟิร์มแวร์ 2.0.0-lite-rc.8 · ภาพหน้าจอจากเครื่องจริง ชื่อ WiFi และรหัสในภาพเป็นตัวอย่าง · <a href="./">กลับหน้าติดตั้ง</a></footer>

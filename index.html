@@ -36,6 +36,10 @@ header { padding-top: 28px; display: grid; gap: 8px; grid-template-columns: minm
 .shots img { width: 100%; height: auto; display: block; border-radius: 8px; border: 1px solid var(--line); image-rendering: pixelated; background: #0a1120; }
 .shots figcaption { font-size: 13px; color: var(--muted); padding-top: 4px; }
 ul { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; }
+.contact { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; align-items: center; }
+.contact img { width: 150px; height: 150px; border-radius: 10px; border: 1px solid var(--line); background: #fff; display: block; }
+.line-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 20px; border-radius: 10px; background: #06C755; color: #fff; font-weight: 600; text-decoration: none; }
+@media (max-width: 420px) { .contact { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; } }
 .links { display: grid; gap: 8px; }
 .links a { display: flex; justify-content: space-between; gap: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; color: var(--ink); font-weight: 500; }
 .links a span { color: var(--accent); white-space: nowrap; }
@@ -121,7 +125,7 @@ p, li, #status, pre#log { overflow-wrap: anywhere; }
       <li>หน้า <b>Choose your Wi-Fi</b>: แตะชื่อ WiFi บ้าน (2.4 GHz) พิมพ์รหัสบนจอ แล้วกด <b>Join</b></li>
       <li>ไม่สะดวกพิมพ์บนจอ: กด <b>Use phone setup</b> แล้วสแกน QR บนจอด้วยมือถือ หน้าตั้งค่าจะเด้งขึ้นมาให้เลือก WiFi บ้านและใส่ที่อยู่ BTC</li>
       <li>ต่อได้แล้ว จอบอกที่อยู่หน้าตั้งค่า <b>http://&lt;IP&gt;/</b> พร้อม QR เปิดด้วยมือถือแล้วใส่<b>ที่อยู่ BTC</b> เครื่องถึงจะเริ่มขุด (ระหว่างนี้หน้าขุดมีป้ายเหลืองเตือน)</li>
-      <li>ครั้งแรกเครื่องจะขึ้น “เครื่องนี้ยังไม่ได้ปลดล็อก” พร้อมรหัสเครื่อง ส่งรหัสเครื่องให้ผู้ขาย แล้ววางรหัสปลดล็อกในหน้าตั้งค่า (ปลดครั้งเดียว อัปเดตภายหลังไม่ต้องปลดใหม่)</li>
+      <li>ครั้งแรกเครื่องจะขึ้น “เครื่องนี้ยังไม่ได้ปลดล็อก” พร้อมรหัสเครื่อง ส่งรหัสเครื่องให้ผู้พัฒนาทาง <a href="#contact">LINE</a> (แตะแถบเขียวบนจอ เครื่องจะขึ้น QR LINE ให้สแกน) แล้ววางรหัสปลดล็อกที่ได้ในหน้าตั้งค่า (ปลดครั้งเดียว อัปเดตภายหลังไม่ต้องปลดใหม่)</li>
     </ol>
     <div class="shots">
       <figure><img src="img/10_logo.png" alt="โลโก้ร้าน sfttech2000 บนพื้นดำตอนเปิดเครื่อง" width="640" height="480" loading="lazy"><figcaption>1. โลโก้ร้าน</figcaption></figure>
@@ -130,6 +134,8 @@ p, li, #status, pre#log { overflow-wrap: anywhere; }
       <figure><img src="img/12_keyboard.png" alt="แป้นพิมพ์รหัส WiFi บนจอ ปุ่ม Back และ Join" width="640" height="480" loading="lazy"><figcaption>2. พิมพ์รหัส แล้ว Join</figcaption></figure>
       <figure><img src="img/14_hotspot.png" alt="หน้าตั้งค่าผ่านมือถือ ชื่อฮอตสปอต รหัส และ QR สำหรับสแกน" width="640" height="480" loading="lazy"><figcaption>3. หรือสแกน QR ด้วยมือถือ</figcaption></figure>
       <figure><img src="img/13_connected.png" alt="หน้า Wi-Fi connected บอกที่อยู่หน้าตั้งค่าพร้อม QR" width="640" height="480" loading="lazy"><figcaption>4. เปิดหน้าตั้งค่า</figcaption></figure>
+      <figure><img src="img/15_lock.png" alt="หน้าเครื่องนี้ยังไม่ได้ปลดล็อก รหัสเครื่อง และแถบเขียวเปิด LINE ผู้พัฒนา" width="640" height="480" loading="lazy"><figcaption>5. ยังไม่ปลดล็อก: แตะแถบเขียว</figcaption></figure>
+      <figure><img src="img/16_line.png" alt="QR LINE ผู้พัฒนาบนจอเครื่อง พร้อมรหัสเครื่อง" width="640" height="480" loading="lazy"><figcaption>5. สแกน QR แล้วส่งรหัสเครื่อง</figcaption></figure>
       <figure><img src="img/01_mining_warn.png" alt="หน้าขุดมีป้ายเหลืองเตือนว่ายังไม่ได้ใส่ที่อยู่ BTC" width="640" height="480" loading="lazy"><figcaption>4. ยังไม่ใส่ BTC: ป้ายเตือน</figcaption></figure>
     </div>
     <p class="muted" style="font-size:14px">สีจอเพี้ยนเหมือนฟิล์มเนกาทีฟ: ช่อง “กลับสีจอ” ในหน้าตั้งค่า (ปกติบอร์ดตั้งให้เอง)</p>
@@ -152,6 +158,17 @@ p, li, #status, pre#log { overflow-wrap: anywhere; }
       <figure><img src="img/07_tide_fishing.png" alt="กราฟน้ำขึ้นลงและช่วงเวลาตกปลา" width="640" height="480" loading="lazy"><figcaption>น้ำขึ้นลง / ตกปลา</figcaption></figure>
       <figure><img src="img/08_lottery.png" alt="ผลสลากกินแบ่งงวดล่าสุด" width="640" height="480" loading="lazy"><figcaption>ผลหวย</figcaption></figure>
       <figure><img src="img/09_calendar.png" alt="ปฏิทินไทย วันพระ และวันหยุด" width="640" height="480" loading="lazy"><figcaption>ปฏิทินวันพระ</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="card" id="contact">
+    <h2>ติดต่อผู้พัฒนา</h2>
+    <div class="contact">
+      <img src="img/line-qr.png" alt="QR code LINE ผู้พัฒนา sfttech2000" width="150" height="150" loading="lazy">
+      <div style="display:grid;gap:10px">
+        <p>ขอรหัสปลดล็อก แจ้งปัญหา หรือสอบถาม ทาง LINE <b>sfttech2000</b> ขอรหัสปลดล็อกให้ส่ง<b>รหัสเครื่อง</b>ที่ขึ้นบนจอมาด้วย</p>
+        <p><a class="line-btn" href="https://lin.ee/SjUh1ct" target="_blank" rel="noopener">แอด LINE ผู้พัฒนา</a></p>
+      </div>
     </div>
   </section>
 
