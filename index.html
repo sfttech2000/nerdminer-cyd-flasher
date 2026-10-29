@@ -36,6 +36,10 @@ header { padding-top: 28px; display: grid; gap: 8px; grid-template-columns: minm
 .shots img { width: 100%; height: auto; display: block; border-radius: 8px; border: 1px solid var(--line); image-rendering: pixelated; background: #0a1120; }
 .shots figcaption { font-size: 13px; color: var(--muted); padding-top: 4px; }
 ul { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; }
+.links { display: grid; gap: 8px; }
+.links a { display: flex; justify-content: space-between; gap: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; color: var(--ink); font-weight: 500; }
+.links a span { color: var(--accent); white-space: nowrap; }
+.links a:hover { border-color: var(--accent); }
 .kicker { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
 h1, h2 { font-family: var(--display); line-height: 1.25; margin: 0; text-wrap: balance; }
 h1 { font-size: clamp(26px, 7vw, 34px); }
@@ -111,12 +115,24 @@ p, li, #status, pre#log { overflow-wrap: anywhere; }
   </section>
 
   <section class="card">
-    <h2>หลังติดตั้ง</h2>
+    <h2>หลังติดตั้ง: เปิดเครื่องครั้งแรก</h2>
     <ol>
-      <li>บอร์ดเปิด WiFi ชื่อ <b>NerdMinerAP</b> (รหัส MineYourCoins) ต่อด้วยมือถือ แล้วตั้งค่า WiFi บ้าน ที่อยู่กระเป๋า BTC และ pool</li>
-      <li>ต่อเน็ตได้แล้ว เครื่องจะขึ้น “เครื่องนี้ยังไม่ได้ปลดล็อก” พร้อมรหัสเครื่อง ส่งรหัสเครื่องให้ผู้ขาย แล้ววางรหัสปลดล็อกที่ได้ในหน้าตั้งค่าของเครื่อง (ปลดล็อกครั้งเดียว อัปเดตภายหลังไม่ต้องปลดใหม่)</li>
-      <li>ตั้งค่าเพิ่มเติมได้ที่ http://&lt;IP ที่ขึ้นบนจอ&gt;/ · สีจอเพี้ยนเหมือนฟิล์มเนกาทีฟ: ช่อง “กลับสีจอ” ในหน้านั้น</li>
+      <li><b>โลโก้ร้าน</b>ขึ้นแวบหนึ่ง แล้วขึ้นหน้า <b>Touch calibration</b> (ครั้งแรกครั้งเดียว) แตะกลางเครื่องหมาย + ที่ขึ้นทีละมุมให้ครบ 4 มุม ใช้ปลายเล็บจะแม่นกว่า อยากทำใหม่ภายหลัง: กดนิ้วค้างบนจอตอนโลโก้ขึ้น</li>
+      <li>หน้า <b>Choose your Wi-Fi</b>: แตะชื่อ WiFi บ้าน (2.4 GHz) พิมพ์รหัสบนจอ แล้วกด <b>Join</b></li>
+      <li>ไม่สะดวกพิมพ์บนจอ: กด <b>Use phone setup</b> แล้วสแกน QR บนจอด้วยมือถือ หน้าตั้งค่าจะเด้งขึ้นมาให้เลือก WiFi บ้านและใส่ที่อยู่ BTC</li>
+      <li>ต่อได้แล้ว จอบอกที่อยู่หน้าตั้งค่า <b>http://&lt;IP&gt;/</b> พร้อม QR เปิดด้วยมือถือแล้วใส่<b>ที่อยู่ BTC</b> เครื่องถึงจะเริ่มขุด (ระหว่างนี้หน้าขุดมีป้ายเหลืองเตือน)</li>
+      <li>ครั้งแรกเครื่องจะขึ้น “เครื่องนี้ยังไม่ได้ปลดล็อก” พร้อมรหัสเครื่อง ส่งรหัสเครื่องให้ผู้ขาย แล้ววางรหัสปลดล็อกในหน้าตั้งค่า (ปลดครั้งเดียว อัปเดตภายหลังไม่ต้องปลดใหม่)</li>
     </ol>
+    <div class="shots">
+      <figure><img src="img/10_logo.png" alt="โลโก้ร้าน sfttech2000 บนพื้นดำตอนเปิดเครื่อง" width="640" height="480" loading="lazy"><figcaption>1. โลโก้ร้าน</figcaption></figure>
+      <figure><img src="img/10_calibration.png" alt="หน้า Touch calibration มีเครื่องหมาย + สีส้มที่มุมซ้ายบน" width="640" height="480" loading="lazy"><figcaption>1. แตะ + ให้ครบ 4 มุม</figcaption></figure>
+      <figure><img src="img/11_wifi_list.png" alt="หน้า Choose your Wi-Fi รายชื่อ WiFi ปุ่ม Rescan และ Use phone setup" width="640" height="480" loading="lazy"><figcaption>2. เลือก WiFi บ้าน</figcaption></figure>
+      <figure><img src="img/12_keyboard.png" alt="แป้นพิมพ์รหัส WiFi บนจอ ปุ่ม Back และ Join" width="640" height="480" loading="lazy"><figcaption>2. พิมพ์รหัส แล้ว Join</figcaption></figure>
+      <figure><img src="img/14_hotspot.png" alt="หน้าตั้งค่าผ่านมือถือ ชื่อฮอตสปอต รหัส และ QR สำหรับสแกน" width="640" height="480" loading="lazy"><figcaption>3. หรือสแกน QR ด้วยมือถือ</figcaption></figure>
+      <figure><img src="img/13_connected.png" alt="หน้า Wi-Fi connected บอกที่อยู่หน้าตั้งค่าพร้อม QR" width="640" height="480" loading="lazy"><figcaption>4. เปิดหน้าตั้งค่า</figcaption></figure>
+      <figure><img src="img/01_mining_warn.png" alt="หน้าขุดมีป้ายเหลืองเตือนว่ายังไม่ได้ใส่ที่อยู่ BTC" width="640" height="480" loading="lazy"><figcaption>4. ยังไม่ใส่ BTC: ป้ายเตือน</figcaption></figure>
+    </div>
+    <p class="muted" style="font-size:14px">สีจอเพี้ยนเหมือนฟิล์มเนกาทีฟ: ช่อง “กลับสีจอ” ในหน้าตั้งค่า (ปกติบอร์ดตั้งให้เอง)</p>
   </section>
 
   <section class="card">
@@ -136,6 +152,14 @@ p, li, #status, pre#log { overflow-wrap: anywhere; }
       <figure><img src="img/07_tide_fishing.png" alt="กราฟน้ำขึ้นลงและช่วงเวลาตกปลา" width="640" height="480" loading="lazy"><figcaption>น้ำขึ้นลง / ตกปลา</figcaption></figure>
       <figure><img src="img/08_lottery.png" alt="ผลสลากกินแบ่งงวดล่าสุด" width="640" height="480" loading="lazy"><figcaption>ผลหวย</figcaption></figure>
       <figure><img src="img/09_calendar.png" alt="ปฏิทินไทย วันพระ และวันหยุด" width="640" height="480" loading="lazy"><figcaption>ปฏิทินวันพระ</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>คู่มือ</h2>
+    <div class="links">
+      <a href="manual.html">คู่มือใช้งาน (ภาษาไทย) มีรูปทุกขั้นตอน <span>เปิดอ่าน ›</span></a>
+      <a href="changelog.txt">มีอะไรใหม่ (Changelog) <span>เปิดอ่าน ›</span></a>
     </div>
   </section>
 

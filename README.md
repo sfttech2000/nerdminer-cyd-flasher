@@ -4,7 +4,8 @@ Installs the NerdMiner CYD firmware (lite edition) on an ESP32-2432S028 board fr
 computers with Chrome or Edge (Web Serial), Android phones with Chrome and an OTG cable (WebUSB):
 https://sfttech2000.github.io/nerdminer-cyd-flasher/
 
-Only the installer page, its screenshots (img/) and the firmware images live here. One app image serves
+Only the installer page, the user manual (manual.html, changelog.txt), their screenshots (img/) and the
+firmware images live here. Screenshots use sample Wi-Fi names and passwords. One app image serves
 every CYD panel: the firmware reads the panel's ID at boot (ST7789 / TPM408: colour inversion, ILI9341 /
 HW-458: none). boot.bin goes to 0x0 and the app image to 0xe000;
 NVS (Wi-Fi and settings) is kept unless Erase is ticked.

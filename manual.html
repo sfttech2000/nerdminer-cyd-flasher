@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>คู่มือ NerdMiner CYD</title>
+<meta name="description" content="คู่มือใช้งาน NerdMiner CYD รุ่นไลท์: เปิดเครื่อง ต่อ WiFi ใส่ที่อยู่ BTC หน้าจอทั้งหมด และการแก้ปัญหา">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+:root {
+  --bg: #f3f5f9; --paper: #fff; --ink: #141b2b; --muted: #5a6680; --line: #d9dfea;
+  --accent: #0e8fb8; --btc: #d9790a; --warn-bg: #fdf1e2; --tip-bg: #e7f4f9;
+  --display: "Bai Jamjuree", "IBM Plex Sans Thai", "Leelawadee UI", Tahoma, sans-serif;
+  --body: "IBM Plex Sans Thai", "Leelawadee UI", Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #070c17; --paper: #0e1626; --ink: #e8eef8; --muted: #8a9bb8; --line: #1f2d47;
+          --accent: #3cc8f0; --btc: #f7931a; --warn-bg: #2a1d0c; --tip-bg: #0f2333; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16.5px/1.75 var(--body);
+       padding: 0 max(16px, env(safe-area-inset-right)) 48px max(16px, env(safe-area-inset-left)); }
+main { max-width: 760px; margin: 0 auto; display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr); }
+header { padding-top: 28px; display: grid; gap: 8px; }
+.kicker { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1, h2, h3 { font-family: var(--display); line-height: 1.3; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(26px, 7vw, 34px); }
+h1 span { color: var(--btc); }
+h2 { font-size: 21px; display: flex; gap: 10px; align-items: baseline; }
+h2 b { color: var(--accent); font-size: 26px; }
+h3 { font-size: 17px; margin-top: 6px; }
+p { margin: 0; }
+a { color: var(--accent); }
+.muted { color: var(--muted); }
+.card { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); }
+.card > * { min-width: 0; }
+ol, ul { margin: 0; padding-left: 1.3em; display: grid; gap: 4px; }
+nav ol { gap: 2px; }
+.box { border-radius: 10px; padding: 12px 14px; }
+.warn { background: var(--warn-bg); }
+.tip { background: var(--tip-bg); }
+.shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.shots.phone { grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); }
+.shots.web { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+figure { margin: 0; min-width: 0; }
+figure img { width: 100%; height: auto; display: block; border-radius: 8px; border: 1px solid var(--line); background: #0a1120; }
+.screen img { image-rendering: pixelated; }
+figcaption { font-size: 13.5px; color: var(--muted); padding-top: 4px; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; vertical-align: top; padding: 7px 8px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--display); font-weight: 600; color: var(--muted); }
+td:first-child { white-space: nowrap; font-weight: 500; }
+.tbl { overflow-x: auto; }
+code { font-family: Consolas, monospace; font-size: 15px; background: var(--tip-bg); padding: 0 5px; border-radius: 5px; overflow-wrap: anywhere; }
+p, li, td { overflow-wrap: anywhere; }
+footer { font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="kicker">NerdMiner CYD · รุ่นไลท์ · <a href="./">กลับหน้าติดตั้ง</a></div>
+    <h1>คู่มือใช้งาน <span>NerdMiner</span> รุ่นไลท์</h1>
+    <p class="muted">เครื่องขุด Bitcoin แบบลุ้นโชค (solo) บนบอร์ดจอสัมผัส 2.8 นิ้ว พร้อมหน้าข้อมูลราคา หุ้น อากาศ แผ่นดินไหว น้ำท่วม น้ำขึ้นลง หวย และปฏิทินวันพระ รุ่นไลท์ไม่มีเสียง ไม่ต้องต่อลำโพง · ใช้ไฟ USB 5 V · ใช้ WiFi 2.4 GHz</p>
+  </header>
+
+  <nav class="card">
+    <ol>
+      <li><a href="#s1">เสียบไฟและเปิดเครื่อง (โลโก้ + ตั้งค่าจอสัมผัส)</a></li>
+      <li><a href="#s2">ต่อ WiFi ครั้งแรก</a></li>
+      <li><a href="#s3">ใส่ที่อยู่ BTC ให้เครื่องเริ่มขุด</a></li>
+      <li><a href="#s4">ปลดล็อกเครื่อง</a></li>
+      <li><a href="#s5">วิธีใช้จอสัมผัสและปุ่ม</a></li>
+      <li><a href="#s6">หน้าจอทั้งหมด</a></li>
+      <li><a href="#s7">ตั้งค่าบนเครื่อง</a></li>
+      <li><a href="#s8">หน้าเว็บตั้งค่า</a></li>
+      <li><a href="#s9">แก้ปัญหาที่พบบ่อย</a></li>
+      <li><a href="#s10">เรื่องควรรู้และไลเซนส์</a></li>
+    </ol>
+  </nav>
+
+  <section class="card" id="s1">
+    <h2><b>1</b> เสียบไฟและเปิดเครื่อง</h2>
+    <p>เสียบสาย USB เข้าที่บอร์ด แล้วต่ออีกด้านกับที่ชาร์จมือถือ (5 V, 1 A ขึ้นไป) หรือพอร์ต USB ของคอม ไม่มีสวิตช์ เสียบไฟแล้วเครื่องเปิดเอง</p>
+    <ol>
+      <li>จอขึ้น<b>โลโก้ร้าน</b>แวบหนึ่ง (ประมาณ 2 วินาที)</li>
+      <li><b>ครั้งแรกเท่านั้น:</b> ขึ้นหน้า <b>Touch calibration</b> ให้แตะกลางเครื่องหมาย + สีส้มที่ขึ้นทีละมุม ครบ 4 มุม (ซ้ายบน ขวาบน ขวาล่าง ซ้ายล่าง) ใช้ปลายเล็บหรือปากกาปลายมนจะแม่นกว่า มุมที่แตะแล้วจะเป็นจุดเขียว จบแล้วขึ้น <b>Calibrated</b></li>
+      <li>ถ้าแตะพลาด เครื่องจะขึ้น “Those taps did not line up” แล้วให้แตะใหม่เอง</li>
+      <li>เครื่องที่ยังไม่เคยตั้ง WiFi จะไปหน้า <b>Choose your Wi-Fi</b> ทันที (หัวข้อ 2) ส่วนเครื่องที่ตั้งแล้วจะต่อ WiFi เดิมเองแล้วเข้าหน้าหลัก</li>
+    </ol>
+    <div class="shots">
+      <figure class="screen"><img src="img/10_logo.png" alt="โลโก้ร้านบนพื้นดำ" width="640" height="480" loading="lazy"><figcaption>โลโก้ร้านตอนเปิดเครื่อง</figcaption></figure>
+      <figure class="screen"><img src="img/10_calibration.png" alt="หน้า Touch calibration มีเครื่องหมาย + สีส้มที่มุมซ้ายบน" width="640" height="480" loading="lazy"><figcaption>Touch calibration: แตะกลาง + ทีละมุม</figcaption></figure>
+    </div>
+    <div class="box tip"><b>ตั้งค่าจอสัมผัสใหม่ภายหลัง</b> (แตะแล้วไม่ตรงจุด): ถอดปลั๊กแล้วเสียบใหม่ แล้วกดนิ้วค้างไว้บนจอตอนโลโก้ขึ้น ปล่อยนิ้วเมื่อขึ้นหน้า Touch calibration ค่าที่ตั้งไว้ไม่หายเวลาอัปเดตเฟิร์มแวร์</div>
+    <p class="muted">ปุ่มบนบอร์ด: ข้างพอร์ต USB มีปุ่มเล็ก 2 ปุ่ม <b>RST</b> คือเริ่มเครื่องใหม่ ส่วน <b>BOOT</b> ใช้เปลี่ยนหน้าจอได้ (หัวข้อ 5)</p>
+  </section>
+
+  <section class="card" id="s2">
+    <h2><b>2</b> ต่อ WiFi ครั้งแรก</h2>
+    <p>เลือกได้ 2 ทาง: <b>ทาง ก.</b> ทำบนจอเครื่องเลย ง่ายที่สุด · <b>ทาง ข.</b> ใช้มือถือ เหมาะกับคนที่ไม่สะดวกพิมพ์รหัสบนจอเล็ก</p>
+
+    <h3>ทาง ก. เลือก WiFi บนจอ</h3>
+    <ol>
+      <li>หน้า <b>Choose your Wi-Fi</b> เครื่องค้นหา WiFi รอบตัวแล้วเรียงตามความแรงสัญญาณ แตะชื่อ WiFi บ้านคุณ ไม่เห็นชื่อ: ใช้ลูกศร ▲ ▼ ด้านขวา หรือแตะ <b>Rescan</b> รูปแม่กุญแจคือ WiFi ที่มีรหัส</li>
+      <li>หน้า <b>Password for …</b> พิมพ์รหัสด้วยแป้นบนจอ แตะช้าๆ ทีละตัว ปุ่ม ⇧ สลับตัวพิมพ์ใหญ่ ปุ่ม #+= ไปหน้าตัวเลขและสัญลักษณ์ ปุ่ม ⌫ ลบ รูปตาด้านขวาของช่องใช้ซ่อน/แสดงรหัส แนะนำให้แตะดูก่อนเพื่อเช็กว่าพิมพ์ถูก</li>
+      <li>แตะ <b>Join</b> เครื่องขึ้น “Connecting / Please wait...” ไม่เกิน 20 วินาที รหัสผิดจะกลับมาที่แป้นพร้อมข้อความสีแดง “Could not join, check the password” แตะ <b>Back</b> ถ้าต้องการเลือก WiFi อื่น</li>
+      <li>ต่อสำเร็จจะขึ้นหน้า <b>Wi-Fi connected</b> บอกที่อยู่หน้าตั้งค่า เช่น <code>http://192.168.1.192/</code> (ของแต่ละบ้านไม่เหมือนกัน) และชื่อสำรอง <code>nerdminer-xxxxxxx.local</code> ใช้มือถือที่ต่อ WiFi เดียวกันสแกน QR ด้านขวาก็เปิดหน้าตั้งค่าได้เลย แตะ <b>Start</b> เพื่อเข้าหน้าหลัก</li>
+    </ol>
+    <div class="box warn"><b>ใช้ได้เฉพาะ WiFi 2.4 GHz</b> บอร์ดนี้มองไม่เห็น WiFi 5 GHz ถ้าเราเตอร์แยกชื่อ ให้เลือกชื่อที่ลงท้าย 2.4G</div>
+    <div class="shots">
+      <figure class="screen"><img src="img/11_wifi_list.png" alt="หน้า Choose your Wi-Fi รายชื่อ WiFi ตัวอย่าง" width="640" height="480" loading="lazy"><figcaption>Choose your Wi-Fi (ชื่อในภาพเป็นตัวอย่าง)</figcaption></figure>
+      <figure class="screen"><img src="img/12_keyboard.png" alt="แป้นพิมพ์รหัส WiFi บนจอ" width="640" height="480" loading="lazy"><figcaption>พิมพ์รหัส แล้วแตะ Join</figcaption></figure>
+      <figure class="screen"><img src="img/13_connected.png" alt="หน้า Wi-Fi connected พร้อมที่อยู่เว็บและ QR" width="640" height="480" loading="lazy"><figcaption>ต่อสำเร็จ: จดที่อยู่เว็บไว้</figcaption></figure>
+    </div>
+
+    <h3>ทาง ข. ตั้งค่าผ่านมือถือ (ฮอตสปอต)</h3>
+    <ol>
+      <li>ที่หน้า Choose your Wi-Fi แตะปุ่ม <b>Use phone setup</b> ด้านล่างขวา</li>
+      <li>จอแสดงชื่อ WiFi ของเครื่อง เช่น <b>NerdMinerAP-6118472</b> และรหัส (PW) ในกรอบเหลือง แต่ละเครื่องไม่เหมือนกัน</li>
+      <li>ใช้กล้องมือถือสแกน QR บนจอ แตะไอคอน QR ที่ขึ้นมา (ภาพ ก) แล้วแตะ <b>เชื่อมต่อ</b> (ภาพ ข) หรือเข้าเมนู WiFi ของมือถือแล้วพิมพ์รหัสเอง</li>
+      <li>หน้าตั้งค่าจะเด้งขึ้นเอง ถ้าไม่ขึ้น ในเมนู WiFi จะเห็น NerdMinerAP ขึ้นว่า “ต้องได้รับอนุญาต” ให้แตะชื่อนั้น (ภาพ ค) หรือเปิดเบราว์เซอร์ไปที่ <code>http://192.168.4.1</code></li>
+      <li>แตะ <b>Configure WiFi</b> (ภาพ ง) แตะชื่อ WiFi บ้านในรายการ ชื่อจะไปอยู่ในช่อง SSID เอง พิมพ์รหัสในช่อง Password ติ๊ก Show Password เพื่อเช็ก (ภาพ จ)</li>
+      <li>เลื่อนลง ช่อง <b>Your BTC address</b> ใส่ที่อยู่รับ Bitcoin ของคุณ ช่องอื่นปล่อยไว้ได้ (ภาพ ฉ) เลื่อนลงล่างสุด แตะ <b>Save</b> เครื่องจะต่อ WiFi บ้านแล้วเริ่มขุด ใส่ที่อยู่ BTC ตรงนี้แล้วข้ามหัวข้อ 3 ได้</li>
+    </ol>
+    <div class="box tip">มือถือบอกว่า “WiFi นี้ไม่มีอินเทอร์เน็ต” เป็นเรื่องปกติ ให้เลือก “ใช้ต่อ” หรือ “คงการเชื่อมต่อ” ไว้ระหว่างตั้งค่า</div>
+    <div class="shots">
+      <figure class="screen"><img src="img/14_hotspot.png" alt="หน้าตั้งค่าผ่านมือถือ ชื่อฮอตสปอต รหัส และ QR" width="640" height="480" loading="lazy"><figcaption>ชื่อ รหัส และ QR ของเครื่อง (รหัสในภาพเป็นตัวอย่าง)</figcaption></figure>
+    </div>
+    <div class="shots phone">
+      <figure><img src="img/manual/p1_scan.jpg" alt="กล้องมือถือส่องที่ QR บนจอ" loading="lazy"><figcaption>ก. ส่องกล้องที่ QR แล้วแตะไอคอน QR</figcaption></figure>
+      <figure><img src="img/manual/p2_join.jpg" alt="ปุ่มเชื่อมต่อ NerdMinerAP" loading="lazy"><figcaption>ข. แตะเชื่อมต่อ</figcaption></figure>
+      <figure><img src="img/manual/p3_phone_wifi.jpg" alt="เมนู WiFi ของมือถือ NerdMinerAP ต้องได้รับอนุญาต" loading="lazy"><figcaption>ค. ถ้าหน้าตั้งค่าไม่เด้ง แตะ “ต้องได้รับอนุญาต”</figcaption></figure>
+      <figure><img src="img/manual/p4_portal.jpg" alt="หน้า WiFiManager ปุ่ม Configure WiFi" loading="lazy"><figcaption>ง. แตะ Configure WiFi</figcaption></figure>
+      <figure><img src="img/manual/p5_portal_wifi.jpg" alt="รายชื่อ WiFi ช่อง SSID และ Password" loading="lazy"><figcaption>จ. แตะชื่อ WiFi บ้าน แล้วใส่รหัส</figcaption></figure>
+      <figure><img src="img/manual/p6_portal_btc.jpg" alt="ช่อง Your BTC address และปุ่ม Save" loading="lazy"><figcaption>ฉ. ใส่ที่อยู่ BTC แล้วแตะ Save</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="card" id="s3">
+    <h2><b>3</b> ใส่ที่อยู่ BTC ให้เครื่องเริ่มขุด</h2>
+    <p>ยังไม่ใส่ที่อยู่ BTC เครื่องจะยังไม่ขุด และหน้า MINING มีป้ายเหลืองบอกที่อยู่หน้าตั้งค่า</p>
+    <ol>
+      <li>ใช้มือถือหรือคอมที่ต่อ WiFi บ้านเดียวกับเครื่อง เปิดเบราว์เซอร์ไปที่อยู่ที่จดไว้ เช่น <code>http://192.168.1.192/</code> ลืมก็ดูได้ที่แถบบนของหน้า HOME หรือ MINING</li>
+      <li>หัวข้อ <b>MINING</b> ช่อง <b>BTC address</b> ลบ <code>yourBtcAddress</code> ออก แล้ววางที่อยู่รับ Bitcoin ของคุณ (มักขึ้นต้นด้วย bc1)</li>
+      <li>ช่องอื่นปล่อยไว้ได้ Pool แนะนำ <code>public-pool.io</code> พอร์ต <code>3333</code> รหัส pool <code>x</code></li>
+      <li>เลื่อนลงล่างสุด แตะ <b>Save and restart</b> รอประมาณ 10 วินาที หน้า MINING จะขึ้นตัวเลข Hashrate (KH/s) แปลว่าขุดอยู่</li>
+    </ol>
+    <div class="box warn"><b>ที่อยู่ BTC มาจากไหน</b> เปิดแอปกระเป๋า Bitcoin แล้วกด “รับ” (Receive) คัดลอกที่อยู่มาวาง ใช้แค่ที่อยู่รับเงินเท่านั้น <b>ห้ามใส่คำกู้คืนกระเป๋า (seed 12/24 คำ) ลงในเครื่องเด็ดขาด</b></div>
+    <div class="shots">
+      <figure class="screen"><img src="img/01_mining_warn.png" alt="หน้า MINING มีป้ายเหลือง ยังไม่ได้ใส่ที่อยู่ BTC" width="640" height="480" loading="lazy"><figcaption>ยังไม่ใส่ที่อยู่ BTC: ป้ายเหลืองบนหน้า MINING</figcaption></figure>
+      <figure><img src="img/manual/w1_settings_top.jpg" alt="หน้าเว็บตั้งค่าส่วนบน ช่อง BTC address" loading="lazy"><figcaption>หน้าเว็บตั้งค่า: ช่อง BTC address</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="card" id="s4">
+    <h2><b>4</b> ปลดล็อกเครื่อง</h2>
+    <p>เครื่องที่แฟลชเองจะขึ้นหน้า “เครื่องนี้ยังไม่ได้ปลดล็อก” พร้อมรหัสเครื่องหลังต่อ WiFi</p>
+    <ol>
+      <li>ส่ง “รหัสเครื่อง” บนจอให้ผู้ขาย</li>
+      <li>ผู้ขายส่ง “รหัสปลดล็อก” กลับมา (ตัวอักษร 86 ตัว)</li>
+      <li>เปิด <code>http://&lt;IP ที่ขึ้นบนจอ&gt;/</code> วางรหัสในช่อง “รหัสปลดล็อก” แล้วกด ปลดล็อก</li>
+    </ol>
+    <p class="muted">ปลดล็อกครั้งเดียว อัปเดตเฟิร์มแวร์ภายหลังก็ยังปลดล็อกอยู่ ต้องปลดใหม่เฉพาะหลังล้างเครื่องทั้งหมด (ใช้รหัสเดิมได้)</p>
+  </section>
+
+  <section class="card" id="s5">
+    <h2><b>5</b> วิธีใช้จอสัมผัสและปุ่ม</h2>
+    <p>จอเป็นแบบกดน้ำหนัก (resistive) ใช้ปลายนิ้วกดให้แน่นกว่าจอมือถือเล็กน้อย</p>
+    <div class="tbl"><table>
+      <tr><th>ทำแบบนี้</th><th>ผล</th></tr>
+      <tr><td>ปัดซ้าย / ขวา</td><td>ไปหน้าถัดไป / ย้อนหน้า</td></tr>
+      <tr><td>ลากขึ้น / ลง</td><td>ปรับความสว่างจอ ขึ้นคือสว่างขึ้น</td></tr>
+      <tr><td>แตะไอคอนบ้าน</td><td>กลับหน้า HOME (แตะชื่อหน้าตรงแถบบนก็ได้)</td></tr>
+      <tr><td>แตะไอคอนเฟือง</td><td>เปิดหน้าตั้งค่าบนเครื่อง</td></tr>
+      <tr><td>แตะไอคอนลูกศรวน</td><td>เปิด / ปิดการเปลี่ยนหน้าอัตโนมัติ</td></tr>
+      <tr><td>แตะกล่องบนหน้า HOME</td><td>เปิดหน้านั้นโดยตรง</td></tr>
+    </table></div>
+    <h3>ปุ่ม BOOT บนบอร์ด</h3>
+    <div class="tbl"><table>
+      <tr><th>กด</th><th>ผล</th></tr>
+      <tr><td>1 ครั้ง</td><td>หน้าถัดไป</td></tr>
+      <tr><td>2 ครั้ง</td><td>ย้อนหน้า</td></tr>
+      <tr><td>3 ครั้ง</td><td>กลับหน้า HOME</td></tr>
+      <tr><td>ค้าง 5 วินาที</td><td>ล้างค่าที่ตั้งไว้ทั้งหมด กลับไปเริ่มที่หน้าเลือก WiFi ใหม่ (ใช้เมื่อจำเป็นเท่านั้น)</td></tr>
+    </table></div>
+  </section>
+
+  <section class="card" id="s6">
+    <h2><b>6</b> หน้าจอทั้งหมด</h2>
+    <p>ปัดเรียงตามลำดับนี้ หน้าสุดท้ายปัดต่อจะวนกลับหน้าแรก ข้อมูลแต่ละหน้าโหลดจากอินเทอร์เน็ตตอนเปิดดู ครั้งแรกอาจรอสักครู่</p>
+    <div class="shots">
+      <figure class="screen"><img src="img/00_home.png" alt="หน้า HOME" width="640" height="480" loading="lazy"><figcaption><b>HOME</b> สรุปทุกอย่างในหน้าเดียว: เวลา วันที่ (พ.ศ.) อากาศ การขุด ราคา Bitcoin ดัชนีหุ้น แผ่นดินไหว/น้ำท่วม น้ำขึ้นลง หวย แตะกล่องไหนก็ไปหน้านั้น แถบบนแสดง IP ของเครื่อง</figcaption></figure>
+      <figure class="screen"><img src="img/01_mining.png" alt="หน้า MINING ขณะกำลังขุด" width="640" height="480" loading="lazy"><figcaption><b>MINING</b> ความเร็วขุด (KH/s, ราว 350–380) ผลดีที่สุด (BEST DIFF) จำนวนผลงานที่ส่ง pool เวลาทำงาน แถวล่าง: บล็อก ความยาก แรงขุดทั้งโลก ค่าธรรมเนียม และนับถอยหลัง halving</figcaption></figure>
+      <figure class="screen"><img src="img/02_btc_gold.png" alt="หน้า ASSETS" width="640" height="480" loading="lazy"><figcaption><b>ASSETS</b> ราคา Bitcoin พร้อมกราฟ 7 วันและราคาเป็นบาท ทอง เงิน ทองไทย USD/THB ดัชนีความกลัว/โลภ และเหรียญยอดนิยม</figcaption></figure>
+      <figure class="screen"><img src="img/03_us_markets.png" alt="หน้า US MARKETS" width="640" height="480" loading="lazy"><figcaption><b>US MARKETS</b> VIX, DXY, ผลตอบแทนพันธบัตร 10 ปี, น้ำมัน ทอง ป้าย RISK-OFF / RISK-ON และราคาหุ้นตามรายชื่อที่ตั้งไว้</figcaption></figure>
+      <figure class="screen"><img src="img/04_weather.png" alt="หน้าอากาศ" width="640" height="480" loading="lazy"><figcaption><b>อากาศ</b> อุณหภูมิ ความชื้น ฝน ลม พระอาทิตย์ขึ้น-ตก พยากรณ์ 3 วัน และแถบเตือนภัย เมืองมาจากพิกัดในหน้าเว็บ</figcaption></figure>
+      <figure class="screen"><img src="img/06_flood_quake.png" alt="หน้า FLOOD & QUAKE" width="640" height="480" loading="lazy"><figcaption><b>FLOOD &amp; QUAKE</b> แผ่นดินไหวที่แรงที่สุดล่าสุดและระยะห่างจากบ้าน ข่าวน้ำท่วม ระดับน้ำในเขื่อนและสถานีใกล้บ้าน</figcaption></figure>
+      <figure class="screen"><img src="img/07_tide_fishing.png" alt="หน้า TIDE & FISHING" width="640" height="480" loading="lazy"><figcaption><b>TIDE &amp; FISHING</b> กราฟน้ำขึ้นลงทั้งวัน เวลาน้ำสูงสุด/ต่ำสุด และช่วงเวลาตกปลาตามดวงจันทร์ (Major / Minor)</figcaption></figure>
+      <figure class="screen"><img src="img/08_lottery.png" alt="หน้า LOTTERY" width="640" height="480" loading="lazy"><figcaption><b>LOTTERY</b> ผลสลากงวดล่าสุด แตะ “แตะเพื่อตรวจสลาก” แล้วพิมพ์เลข 6 หลัก เครื่องบอกว่าถูกรางวัลอะไร</figcaption></figure>
+      <figure class="screen"><img src="img/09_calendar.png" alt="หน้าปฏิทิน" width="640" height="480" loading="lazy"><figcaption><b>ปฏิทิน</b> วันหยุดเป็นตัวแดง รูปดวงจันทร์คือวันพระ แตะวันใดก็ได้เพื่อดูวันไทยและวันหยุดของวันนั้น</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="card" id="s7">
+    <h2><b>7</b> ตั้งค่าบนเครื่อง</h2>
+    <p>แตะไอคอนเฟืองที่แถบบน มี 2 แท็บ คือ DISPLAY และ SYSTEM แตะแถวเพื่อเปลี่ยนค่า แตะ BACK มุมซ้ายบนเพื่อออก</p>
+    <div class="shots">
+      <figure class="screen"><img src="img/manual/d1_settings_display.png" alt="หน้าตั้งค่า แท็บ DISPLAY" width="640" height="480" loading="lazy"><figcaption>แท็บ DISPLAY</figcaption></figure>
+      <figure class="screen"><img src="img/manual/d2_settings_system.png" alt="หน้าตั้งค่า แท็บ SYSTEM" width="640" height="480" loading="lazy"><figcaption>แท็บ SYSTEM</figcaption></figure>
+    </div>
+    <div class="tbl"><table>
+      <tr><th>DISPLAY</th><th>ความหมาย</th></tr>
+      <tr><td>Auto light</td><td>ปรับความสว่างจอตามแสงในห้องเอง</td></tr>
+      <tr><td>LED</td><td>ไฟ LED สีด้านหลังบอร์ดกะพริบตอนทำงาน ปิดได้ถ้ารบกวนตอนนอน</td></tr>
+      <tr><td>Theme</td><td>ชุดสีหน้าจอ แตะซ้าย/ขวาเพื่อเลือก</td></tr>
+      <tr><td>Rotate 180</td><td>กลับหัวจอ เมื่อวางเครื่องให้สาย USB อยู่อีกด้าน</td></tr>
+      <tr><td>Screen off</td><td>ปิดจอเองเมื่อไม่ได้แตะครบ 5 / 15 / 30 นาที เครื่องยังขุดต่อ แตะจอเพื่อเปิด</td></tr>
+      <tr><td>Auto page</td><td>เปลี่ยนหน้าเองตามเวลาที่ตั้ง เริ่มหลังไม่ได้แตะจอ 30 วินาที</td></tr>
+      <tr><td>Home page</td><td>หน้าที่ไอคอนบ้านพาไป</td></tr>
+      <tr><td>Card rotate</td><td>ความเร็วที่กล่องบนหน้า HOME สลับเนื้อหา</td></tr>
+      <tr><td>Screensaver / Saver look</td><td>ภาพพักหน้าจอเมื่อไม่ได้แตะครบเวลาที่ตั้ง และรูปแบบ เช่น Clock, Stars, Fire</td></tr>
+    </table></div>
+    <p><b>SYSTEM</b> แสดงรุ่นเฟิร์มแวร์ IP ชื่อและความแรง WiFi pool เวลาทำงาน และที่อยู่ BTC ปุ่มด้านล่างต้อง<b>กดค้าง</b>กันกดพลาด:</p>
+    <ul>
+      <li><b>Restart</b> ค้าง 1.5 วินาที: เริ่มเครื่องใหม่</li>
+      <li><b>WiFi</b> ค้าง 1 วินาที: เปลี่ยน WiFi กลับไปหน้า Choose your Wi-Fi (มีปุ่ม <b>Keep current</b> ถ้าเปลี่ยนใจ)</li>
+      <li><b>Factory reset</b> ค้าง 4 วินาที: ล้างทุกอย่าง กลับเป็นเครื่องใหม่</li>
+    </ul>
+  </section>
+
+  <section class="card" id="s8">
+    <h2><b>8</b> หน้าเว็บตั้งค่า</h2>
+    <p>เปิด <code>http://&lt;IP ของเครื่อง&gt;/</code> จากมือถือหรือคอมใน WiFi เดียวกัน ส่วนบนแสดงสถานะการขุดสด ใต้ลงมาเป็นค่าที่แก้ได้ แก้เสร็จแตะ <b>Save and restart</b> ทุกครั้ง</p>
+    <div class="shots web">
+      <figure><img src="img/manual/w2_settings_bottom.jpg" alt="หน้าเว็บตั้งค่าส่วนล่าง" loading="lazy"><figcaption>ส่วนล่างของหน้าเว็บ</figcaption></figure>
+    </div>
+    <div class="tbl"><table>
+      <tr><th>หัวข้อ</th><th>ใช้ทำอะไร</th></tr>
+      <tr><td>MINING</td><td>เลือก pool ใส่ที่อยู่ BTC (หัวข้อ 3)</td></tr>
+      <tr><td>LOCATION</td><td>พิกัดบ้าน (Latitude / Longitude) ใช้กับอากาศ ค่าฝุ่น น้ำขึ้นลง ระยะแผ่นดินไหว และสถานีน้ำ หาได้จาก Google Maps: กดค้างที่บ้านแล้วคัดลอกตัวเลขสองตัว · Time zone ของไทยคือ 7</td></tr>
+      <tr><td>DATA SOURCES</td><td>รายชื่อหุ้นที่จะแสดง คั่นด้วยจุลภาค เช่น qqq,nvda,aapl · คีย์ Finnhub (ราคาหุ้น) และ AQI token (ค่าฝุ่น) ขอฟรีได้ที่ finnhub.io และ aqicn.org</td></tr>
+      <tr><td>OPTIONS</td><td>จำสถิติการขุดข้ามการรีสตาร์ท · ชุดสี · Invert display colors (ติ๊กเมื่อสีจอเพี้ยนเหมือนฟิล์มเนกาทีฟ ปกติเครื่องตั้งให้เองตามรุ่นจอ) · นับเครื่องออนไลน์แบบไม่ระบุตัวตน</td></tr>
+      <tr><td>DEVICE</td><td>Restart · Licences (ไลเซนส์ซอฟต์แวร์) · Factory reset</td></tr>
+    </table></div>
+  </section>
+
+  <section class="card" id="s9">
+    <h2><b>9</b> แก้ปัญหาที่พบบ่อย</h2>
+    <div class="tbl"><table>
+      <tr><th>อาการ</th><th>วิธีแก้</th></tr>
+      <tr><td>แตะจอไม่ตรงจุด</td><td>ตั้งค่าจอสัมผัสใหม่: เสียบไฟใหม่แล้วกดนิ้วค้างบนจอตอนโลโก้ขึ้น (หัวข้อ 1)</td></tr>
+      <tr><td>แตะจอไม่ค่อยติด</td><td>จอเป็นแบบกดน้ำหนัก กดด้วยปลายนิ้วให้แน่นขึ้นหรือใช้ปลายเล็บ</td></tr>
+      <tr><td>หา WiFi บ้านไม่เจอ</td><td>เครื่องเห็นเฉพาะ 2.4 GHz แตะ Rescan และวางเครื่องใกล้เราเตอร์ขึ้น</td></tr>
+      <tr><td>Hashrate เป็น 0</td><td>ยังไม่ได้ใส่ที่อยู่ BTC (หน้า MINING มีป้ายเหลือง) ใส่ตามหัวข้อ 3</td></tr>
+      <tr><td>ลืม IP ของเครื่อง</td><td>ดูที่แถบบนของหน้า HOME / MINING หรือ ตั้งค่า &gt; SYSTEM</td></tr>
+      <tr><td>ย้ายบ้าน / เปลี่ยนเราเตอร์</td><td>ตั้งค่า &gt; SYSTEM &gt; กดค้าง WiFi แล้วเลือก WiFi ใหม่ ถ้าเปิดเครื่องแล้วต่อ WiFi เดิมไม่ได้ จะขึ้นหน้าเลือก WiFi ให้เอง</td></tr>
+      <tr><td>สีจอเพี้ยน</td><td>หน้าเว็บ &gt; OPTIONS &gt; ติ๊ก Invert display colors แล้ว Save and restart</td></tr>
+      <tr><td>ข้อมูลไม่ขึ้น</td><td>เปิดหน้านั้นแล้วรอสักครู่ ข้อมูลต้องใช้อินเทอร์เน็ต ถ้ายังไม่ขึ้นลองรีสตาร์ท</td></tr>
+      <tr><td>จอดับ</td><td>อาจตั้ง Screen off ไว้ แตะจอหนึ่งครั้งเพื่อเปิด</td></tr>
+      <tr><td>อยากเริ่มใหม่ทั้งหมด</td><td>ตั้งค่า &gt; SYSTEM &gt; กดค้าง Factory reset 4 วินาที หรือกดปุ่ม BOOT ค้าง 5 วินาที</td></tr>
+    </table></div>
+  </section>
+
+  <section class="card" id="s10">
+    <h2><b>10</b> เรื่องควรรู้และไลเซนส์</h2>
+    <ul>
+      <li><b>การขุดแบบลุ้นโชค:</b> ถ้าวันหนึ่งเจอบล็อก รางวัลทั้งบล็อกเข้ากระเป๋าคุณ แต่โอกาสต่ำมาก ใกล้เคียงการถูกรางวัลใหญ่ ไม่ใช่รายได้ประจำ ให้มองเป็นของสะสม ของตกแต่งโต๊ะ และจอข้อมูลประจำวัน</li>
+      <li>เครื่องกินไฟประมาณ 1 วัตต์ เปิดทิ้งไว้ตลอดได้ ค่าที่ตั้งไว้เก็บในเครื่อง ถอดปลั๊กไม่หาย</li>
+      <li>ข้อมูลในหน้าต่างๆ มาจากแหล่งข้อมูลสาธารณะ ใช้ประกอบการตัดสินใจเท่านั้น</li>
+      <li>ซอฟต์แวร์พัฒนาต่อจากโครงการ NerdMiner v2 (ไลเซนส์ MIT) รายชื่อซอฟต์แวร์โอเพนซอร์สและไลเซนส์ทั้งหมดดูได้ที่ <code>http://&lt;IP&gt;/licenses</code></li>
+    </ul>
+  </section>
+
+  <footer>คู่มือ NerdMiner CYD รุ่นไลท์ · เฟิร์มแวร์ 2.0.0-lite-rc.8 · ภาพหน้าจอจากเครื่องจริง ชื่อ WiFi และรหัสในภาพเป็นตัวอย่าง · <a href="./">กลับหน้าติดตั้ง</a></footer>
+</main>
+</body>
+</html>
